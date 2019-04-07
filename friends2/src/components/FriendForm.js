@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 
-class FriendForm extends React.Component() {
+class FriendForm extends Component {
    constructor(props) {
        super(props);
        this.state = {
            friend: {
                 name: '',
-                age: '',
+                age: Number,
                 email: ''
            }
        };
@@ -21,7 +22,12 @@ class FriendForm extends React.Component() {
    }
 
    handleSubmit = event => {
-    
+       event.preventDefault();
+       axios
+        .post("http://localhost:5000/friends", this.state.friend)
+        .then(response => {this.props.updateItems(response.data)
+        })
+
    }
 
    render() {
