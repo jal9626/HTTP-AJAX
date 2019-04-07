@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
-import './App.css';
+import './Styles.css';
 import FriendList from './components/FriendList';
 import FriendForm from './components/FriendForm';
+import Home from './components/Home';
 
 class App extends Component {
   
@@ -31,17 +32,28 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav>
+        <div className='nav-container'>
           <h1>Ashley's Friends</h1>
-          <NavLink exact to ="/">
-            Home
-          </NavLink>
-        </nav>
-
+          <nav>
+            <NavLink exact to ="/">
+              Home
+            </NavLink>
+            <NavLink to="/friend-list" >
+              Friends
+            </NavLink> 
+            <NavLink to="/friend-form" >
+              Enter New Friend
+            </NavLink>
+          </nav>
+        </div>
         {/* {this.state.friends.map(friend =>
           <FriendList friend={friend} key={friend.id}/>
         )}   */}
 
+        <Route exact path='/' render={props =>(
+          <Home {...props} />
+        )} 
+        />
         <Route exact path="/friend-list"
           render={props => (
               <FriendList {...props} friends={this.state.friends} />
